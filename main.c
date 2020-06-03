@@ -15,7 +15,7 @@ int main() {
    ajouterBateau(&port, &voilier1);
    afficherPort(&port);
 
-   detruirePort(&port);
+   viderPort(&port);
    ajouterBateau(&port, &plaisance1);
    afficherPort(&port);
 }
