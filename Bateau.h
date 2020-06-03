@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 typedef struct Bateau {
-   char* nom;
+   const char* nom;
    enum {
       C_MOTEUR, C_VOILIER
    } categorieBateau;
@@ -26,7 +26,7 @@ typedef struct Bateau {
             // bateau de plaisance
             struct {
                uint8_t longueur;
-               char* nomProprietaire;
+               const char* nomProprietaire;
             } bateauPlaisance;
          } type;
       } bateauMoteur;
@@ -37,10 +37,10 @@ typedef struct Bateau {
    };
 } Bateau;
 
-Bateau nouveauBateauPeche(char* nom, uint16_t puissance, uint8_t capacite);
-Bateau nouveauBateauPlaisance(char* nom, uint16_t puissance, uint8_t longueur, char* nomProprietaire);
-Bateau nouveauVoilier(char* nom, uint16_t surfaceVoilure);
+Bateau nouveauBateauPeche(const char* nom, uint16_t puissance, uint8_t capacite);
+Bateau nouveauBateauPlaisance(const char* nom, uint16_t puissance, uint8_t longueur, const char* nomProprietaire);
+Bateau nouveauVoilier(const char* nom, uint16_t surfaceVoilure);
 
-void afficherBateau(Bateau bateau);
+void afficherBateau(const Bateau* bateau);
 
 #endif //LABO5_BATEAU_H
