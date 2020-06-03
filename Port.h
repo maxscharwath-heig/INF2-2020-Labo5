@@ -20,7 +20,7 @@ Bateau* ajouterBateau(Port* port, Bateau* bateau);
 
 void afficherPort(const Port* port);
 
-void detruirePort(Port* port);
+void viderPort(Port* port);
 
 
 #endif //LABO5_PORT_H

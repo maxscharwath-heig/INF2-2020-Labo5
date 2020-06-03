@@ -44,7 +44,7 @@ void afficherPort(const Port* port) {
    }
 }
 
-void detruirePort(Port* port) {
+void viderPort(Port* port) {
    free(port->listeBateau);
    port->nbBateau = 0;
    port->capacite = 0;
