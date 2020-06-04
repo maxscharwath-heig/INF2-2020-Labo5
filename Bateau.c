@@ -61,7 +61,7 @@ void afficherBateau(const Bateau* bateau) {
                bateau->bateauMoteur.puissance,
                bateau->bateauMoteur.type.bateauPeche.capacite
          );
-         break;
+		break;
       case T_PLAISANCE :
          printf(
                "Type : Bateau de plaisance \n"
@@ -74,7 +74,7 @@ void afficherBateau(const Bateau* bateau) {
                bateau->bateauMoteur.puissance,
                bateau->bateauMoteur.type.bateauPlaisance.longueur
          );
-         break;
+		break;
       case T_VOILIER :
          printf(
                "Type : Voilier\n"
@@ -83,7 +83,9 @@ void afficherBateau(const Bateau* bateau) {
                bateau->nom,
                bateau->voilier.voilure
          );
-         break;
+		break;
+		default:
+		break;
    }
 
 }
