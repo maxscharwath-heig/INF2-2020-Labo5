@@ -5,17 +5,14 @@
 #include "Port.h"
 #include <stdlib.h>
 
-double calculTaxe(PortTaxe* taxe, Bateau* bateau);
+double calculTaxe(Bateau* bateau);
 void calculSommeTaxes(const Port* port, double* voilier, double* peche, double* plaisance);
 void calculMoyenneTaxes(const Port* port, double* voilier, double* peche, double* plaisance);
 void calculMedianeTaxes(const Port* port, double* voilier, double* peche, double* plaisance);
 int cmpfunc (const void * a, const void * b);
 
 
-Port nouveauPort(PortTaxe* taxe, size_t capacite) {
-	if (!taxe) {
-		exit(EXIT_FAILURE);
-	}
+Port nouveauPort(size_t capacite) {
    BateauTaxe* temp = NULL;
    if (capacite > 0) {
       temp = (BateauTaxe*) calloc(capacite, sizeof(BateauTaxe));
@@ -27,7 +24,6 @@ Port nouveauPort(PortTaxe* taxe, size_t capacite) {
          .nbBateau = 0,
          .capacite = capacite,
          .listeBateau = temp,
-			.taxe = taxe
    };
    return port;
 }
@@ -43,36 +39,32 @@ Bateau* ajouterBateau(Port* port, Bateau* bateau) {
       port->capacite = tempCapacite;
       port->listeBateau = temp;
    }
-	BateauTaxe nouveauBateau = {bateau, calculTaxe(port->taxe, bateau)};
+	BateauTaxe nouveauBateau = {bateau, calculTaxe(bateau)};
    port->listeBateau[port->nbBateau] = nouveauBateau;
    ++port->nbBateau;
    return bateau;
 }
 
-double calculTaxe(PortTaxe* taxe, Bateau* bateau) {
+double calculTaxe(Bateau* bateau) {
 	double taxeTotale = 0;
 	if (bateau->categorieBateau == C_MOTEUR) {
-		taxeTotale += taxe->taxeDeBase.taxeMoteur;
+		taxeTotale += TAXE_MOTEUR;
 		if (bateau->typeBateau == T_PECHE) {
 			taxeTotale += bateau->bateauMoteur.type.bateauPeche.capacite < 
-							  taxe->taxeSpecifique.peche.seuilTonnage ?
-							  taxe->taxeSpecifique.peche.basTonnage :
-							  taxe->taxeSpecifique.peche.hautTonnage;
+							  TAXE_PECHE_SEUIL ? TAXE_PECHE_BAS : TAXE_PECHE_HAUT;
 		}
 		else { // tout pour plaisance
 			taxeTotale += bateau->bateauMoteur.puissance < 
-							  taxe->taxeSpecifique.plaisance.seuilPuissance ?
-							  taxe->taxeSpecifique.plaisance.bassePuissance :
-							  taxe->taxeSpecifique.plaisance.facteurHautePuissance *
+							  TAXE_PLAISANCE_SEUIL ?
+							  TAXE_PLAISANCE_BAS :
+							  TAXE_PLAISANCE_FACTEUR_HAUT *
 							  bateau->bateauMoteur.type.bateauPlaisance.longueur;
 		}
 	}
 	else { // tout pour voilier
-		taxeTotale += taxe->taxeDeBase.taxeVoilier;
-		taxeTotale += bateau->voilier.voilure < 
-						  taxe->taxeSpecifique.voilier.seuilSurface ?
-						  taxe->taxeSpecifique.voilier.basseSurface :
-						  taxe->taxeSpecifique.voilier.grandeSurface;
+		taxeTotale += TAXE_VOILIER;
+		taxeTotale += bateau->voilier.voilure < TAXE_VOILIER_SEUIL ?
+						  TAXE_VOILIER_BAS : TAXE_VOILIER_HAUT;
 	}
 	return taxeTotale;
 }

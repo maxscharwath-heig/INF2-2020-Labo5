@@ -1,35 +1,9 @@
-#include <stdio.h>
 #include "Bateau.h"
 #include "Port.h"
 
 
 int main() {
-	
-	PortTaxe structureTaxe = {
-		.taxeDeBase = {
-			.taxeVoilier = 50.0,
-			.taxeMoteur = 100.0
-		},
-		.taxeSpecifique = {
-			.peche = {
-				.basTonnage = 0.0,
-				.hautTonnage = 100.0,
-				.seuilTonnage = 20
-			},
-			.plaisance = {
-				.bassePuissance = 50.0, 
-				.facteurHautePuissance = 15.0,
-				.seuilPuissance = 100
-			},
-			.voilier = {
-				.basseSurface = 0.0,
-				.grandeSurface = 25.0,
-				.seuilSurface = 200
-			}
-		} 
-	};
-	
-   Port port = nouveauPort(&structureTaxe, 1);
+   Port port = nouveauPort(1);
 
    Bateau peche1 = nouveauBateauPeche("Noe1", 20, 20);
 	Bateau peche2 = nouveauBateauPeche("Noe2", 10, 10);

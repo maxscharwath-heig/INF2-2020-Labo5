@@ -8,6 +8,21 @@
 #include <stdio.h>
 #include "Bateau.h"
 
+#define TAXE_VOILIER 50.0
+#define TAXE_MOTEUR 100.0
+
+#define TAXE_PECHE_BAS 0.0
+#define TAXE_PECHE_HAUT 100.0
+#define TAXE_PECHE_SEUIL 20
+
+#define TAXE_PLAISANCE_BAS 50.0
+#define TAXE_PLAISANCE_FACTEUR_HAUT 15.0
+#define TAXE_PLAISANCE_SEUIL 100
+
+#define TAXE_VOILIER_BAS 0.0
+#define TAXE_VOILIER_HAUT 25.0
+#define TAXE_VOILIER_SEUIL 200
+
 typedef enum {
 	T_SOMME, 
 	T_MOYENNE, 
@@ -19,42 +34,13 @@ typedef struct BateauTaxe {
 	double taxeTotale;
 } BateauTaxe;
 
-typedef struct PortTaxe {
-	struct {
-		double taxeVoilier;
-		double taxeMoteur;
-	} taxeDeBase;
-	
-	struct {
-		struct {
-			double basTonnage;
-			double hautTonnage;
-			uint8_t seuilTonnage;
-		} peche;
-		
-		struct {
-			double bassePuissance;
-			double facteurHautePuissance;
-			uint16_t seuilPuissance;
-		} plaisance;
-		
-		struct {
-			double basseSurface;
-			double grandeSurface;
-			uint16_t seuilSurface;
-		} voilier;
-	} taxeSpecifique;
-	
-} PortTaxe;
-
 typedef struct Port {
    size_t nbBateau;
    size_t capacite;
    BateauTaxe* listeBateau;
-	PortTaxe* taxe;
 } Port;
 
-Port nouveauPort(PortTaxe* taxe, size_t capacite);
+Port nouveauPort(size_t capacite);
 
 Bateau* ajouterBateau(Port* port, Bateau* bateau);
 
