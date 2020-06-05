@@ -5,7 +5,9 @@
 #include "Port.h"
 #include <stdlib.h>
 
-double calculTaxe(Bateau* bateau);
+const Bateau* ajouterBateau(ListeBateau* liste, const Bateau* bateau);
+
+double calculTaxe(const Bateau* bateau);
 
 double calculSommeTaxes(const ListeBateau* liste);
 
@@ -17,7 +19,7 @@ void trierListeBateau(ListeBateau* triable);
 
 int cmpfunc(const void* a, const void* b);
 
-Port nouveauPort(Bateau* liste, size_t taille) {
+Port nouveauPort(const Bateau* liste, const size_t taille) {
    Port port = {
          .nbBateau = taille,
          .listeBateau = liste,
@@ -53,9 +55,9 @@ int cmpfunc(const void* a, const void* b) {
    return (int) (((BateauTaxe*) a)->taxeTotale - ((BateauTaxe*) b)->taxeTotale);
 }
 
-Bateau* ajouterBateau(ListeBateau* liste, Bateau* bateau) {
+const Bateau* ajouterBateau(ListeBateau* liste, const Bateau* bateau) {
    if (liste->taille >= liste->capacite) {
-      size_t tempCapacite = (liste->capacite + 1) * 1.5;
+      size_t tempCapacite = (size_t) ((liste->capacite + 1) * 1.5);
       BateauTaxe* temp = (BateauTaxe*) realloc(
             liste->liste,
             tempCapacite * sizeof(BateauTaxe)
@@ -70,7 +72,7 @@ Bateau* ajouterBateau(ListeBateau* liste, Bateau* bateau) {
    return bateau;
 }
 
-double calculTaxe(Bateau* bateau) {
+double calculTaxe(const Bateau* bateau) {
    double taxeTotale = 0;
    if (bateau->categorieBateau == C_MOTEUR) {
       taxeTotale += TAXE_MOTEUR;
@@ -123,7 +125,8 @@ void afficherTaxes(const Port* port, const TypeTaxe taxe) {
          break;
    }
    printf(
-         " des taxes des 3 types de bateaux: \n Voilier: %.2f E Peche: %.2f E Plaisance: %.2f E \n\n",
+         " des taxes des 3 types de bateaux: \n"
+         "Voilier: %.2f\tE Peche: %.2f E\tPlaisance: %.2f E \n\n",
          voilier, peche, plaisance);
 }
 

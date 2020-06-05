@@ -30,7 +30,7 @@ typedef enum {
 } TypeTaxe;
 
 typedef struct BateauTaxe {
-	Bateau* bateau;
+	const Bateau* bateau;
 	double taxeTotale;
 } BateauTaxe;
 
@@ -42,15 +42,13 @@ typedef struct ListeBateau {
 
 typedef struct Port {
    size_t nbBateau;
-   Bateau* listeBateau;
+   const Bateau* listeBateau;
    ListeBateau listeVoilier;
    ListeBateau listePeche;
    ListeBateau listePlaisance;
 } Port;
 
-Port nouveauPort(Bateau *liste, size_t taille);
-
-Bateau* ajouterBateau(ListeBateau* liste, Bateau* bateau);
+Port nouveauPort(const Bateau *liste, size_t taille);
 
 void afficherPort(const Port* port);
 

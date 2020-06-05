@@ -9,7 +9,7 @@ int main() {
          nouveauBateauPeche("Noe3", 10, 10),
          nouveauBateauPeche("Noe4", 30, 30),
          nouveauBateauPeche("Noe5", 10, 10),
-         nouveauBateauPlaisance("Gottham", 55, 42, "Batman"),
+         nouveauBateauPlaisance("Gotham", 55, 42, "Batman"),
          nouveauVoilier("Metropolis", 36),
    };
 
