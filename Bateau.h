@@ -1,3 +1,22 @@
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05
+ Fichier     : Bateau.h
+ Auteur(s)   : Kylian Bourcoud, Joan Maillard, Maxime Scharwath
+ Date        : 05.06.2020
+ But         : Déclaration du type composé Bateau et de ses fonctions associées
+               les 3 fonctions ci-dessous simplifie la creation de
+               la structure Bateau pour l'utilisateur.
+               - nouveauBateauPeche()
+               - nouveauBateauPlaisance()
+               - nouveauVoilier()
+
+               - afficherBateau() permet d'afficher les information du bateau donné.
+ Remarque(s) : -
+ Compilateur : MinGW-g++ 6.3.0
+ -----------------------------------------------------------------------------------
+ */
+
 #ifndef LABO5_BATEAU_H
 #define LABO5_BATEAU_H
 
@@ -37,9 +56,23 @@ typedef struct Bateau {
    };
 } Bateau;
 
-Bateau nouveauBateauPeche(const char* nom, uint16_t puissance, uint8_t capacite);
-Bateau nouveauBateauPlaisance(const char* nom, uint16_t puissance, uint8_t longueur, const char* nomProprietaire);
-Bateau nouveauVoilier(const char* nom, uint16_t surfaceVoilure);
+Bateau nouveauBateauPeche(
+      const char* nom,
+      uint16_t puissance,
+      uint8_t capacite
+      );
+
+Bateau nouveauBateauPlaisance(
+      const char* nom,
+      uint16_t puissance,
+      uint8_t longueur,
+      const char* nomProprietaire
+      );
+
+Bateau nouveauVoilier(
+      const char* nom,
+      uint16_t surfaceVoilure
+      );
 
 void afficherBateau(const Bateau* bateau);
 

@@ -1,3 +1,14 @@
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05
+ Fichier     : Bateau.c
+ Auteur(s)   : Kylian Bourcoud, Joan Maillard, Maxime Scharwath
+ Date        : 05.06.2020
+ But         : Implémentation des fonctions de Bateau.h.
+ Remarque(s) : -
+ Compilateur : MinGW-g++ 6.3.0
+ -----------------------------------------------------------------------------------
+ */
 #include "Bateau.h"
 
 Bateau nouveauBateauPeche(const char* nom, uint16_t puissance, uint8_t capacite) {

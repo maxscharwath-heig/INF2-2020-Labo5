@@ -1,6 +1,23 @@
-//
-// Created by Maxime on 03.06.2020.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05
+ Fichier     : Port.h
+ Auteur(s)   : Kylian Bourcoud, Joan Maillard, Maxime Scharwath
+ Date        : 05.06.2020
+ But         : Déclaration du type composé Port et de ses fonctions associées.
+               3 fonctions sont accessible pour l'utilisateur:
+               - nouveauPort() Simplifie la créeation d'un port
+                  avec un tableau de Bateau
+               - afficherPort() Affiche la liste des bateaux dans le port
+               - afficherTaxes() Permet d'afficher le type de taxes
+                  (SOMME, MOYENNE, MEDIANE) par type de bateau.
+ Remarque(s) : - BateauTaxe stoque la taxe et le pointeur du bateau associé,
+                  mais actuellemnt on utilse pas ce pointeur mais il peut être utile
+                  pour un affichage par type.
+ Compilateur : MinGW-g++ 6.3.0
+ -----------------------------------------------------------------------------------
+ */
+
 #ifndef LABO5_PORT_H
 #define LABO5_PORT_H
 
@@ -29,17 +46,21 @@ typedef enum {
 	T_MEDIANE
 } TypeTaxe;
 
+//BateauTaxé permet de lier un bateau avec sa taxe
 typedef struct BateauTaxe {
 	const Bateau* bateau;
 	double taxeTotale;
 } BateauTaxe;
 
+//ListeBateau est une structure qui permet de stoquer dynamiquement
+// une liste de bateau du même type
 typedef struct ListeBateau {
    BateauTaxe* liste;
    size_t taille;
    size_t capacite;
 } ListeBateau;
 
+//Port est une structure d'un port
 typedef struct Port {
    size_t nbBateau;
    const Bateau* listeBateau;
@@ -48,7 +69,7 @@ typedef struct Port {
    ListeBateau listePlaisance;
 } Port;
 
-Port nouveauPort(const Bateau *liste, size_t taille);
+Port nouveauPort(const Bateau *bateaux, size_t taille);
 
 void afficherPort(const Port* port);
 

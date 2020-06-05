@@ -1,17 +1,27 @@
-//
-// Created by Maxime on 03.06.2020.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05
+ Fichier     : Port.c
+ Auteur(s)   : Kylian Bourcoud, Joan Maillard, Maxime Scharwath
+ Date        : 05.06.2020
+ But         : Implémentation des fonctions de Port.h et de ses fonctions esclaves.
+ Remarque(s) : - Après l'ajout des bateaux dans leur liste par type,
+                 on trie chaque liste par montant de la taxe pour la mediane.
+                 L'ordre de ces listes n'affecte pas l'affichage du port.
+ Compilateur : MinGW-g++ 6.3.0
+ -----------------------------------------------------------------------------------
+ */
 
 #include "Port.h"
 #include <stdlib.h>
 
-const Bateau* ajouterBateau(ListeBateau* liste, const Bateau* bateau);
+const Bateau* ajouterBateau(ListeBateau* listeBateau, const Bateau* bateau);
 
 double calculTaxe(const Bateau* bateau);
 
-double calculSommeTaxes(const ListeBateau* liste);
+double calculSommeTaxes(const ListeBateau* listeBateau);
 
-double calculMoyenneTaxes(const ListeBateau* liste);
+double calculMoyenneTaxes(const ListeBateau* listeBateau);
 
 double calculMedianeTaxes(const ListeBateau* liste);
 
@@ -19,25 +29,25 @@ void trierListeBateau(ListeBateau* triable);
 
 int cmpfunc(const void* a, const void* b);
 
-Port nouveauPort(const Bateau* liste, const size_t taille) {
+Port nouveauPort(const Bateau* bateaux, const size_t taille) {
    Port port = {
          .nbBateau = taille,
-         .listeBateau = liste,
+         .listeBateau = bateaux,
          .listeVoilier = {.taille=0, .capacite=0},
          .listePeche = {.taille=0, .capacite=0},
          .listePlaisance = {.taille=0, .capacite=0},
    };
 
    for (size_t i = 0; i < taille; ++i) {
-      switch (liste[i].typeBateau) {
+      switch (bateaux[i].typeBateau) {
          case T_VOILIER:
-            ajouterBateau(&port.listeVoilier, &liste[i]);
+            ajouterBateau(&port.listeVoilier, &bateaux[i]);
             break;
          case T_PECHE:
-            ajouterBateau(&port.listePeche, &liste[i]);
+            ajouterBateau(&port.listePeche, &bateaux[i]);
             break;
          case T_PLAISANCE:
-            ajouterBateau(&port.listePlaisance, &liste[i]);
+            ajouterBateau(&port.listePlaisance, &bateaux[i]);
             break;
       }
    }
@@ -55,20 +65,25 @@ int cmpfunc(const void* a, const void* b) {
    return (int) (((BateauTaxe*) a)->taxeTotale - ((BateauTaxe*) b)->taxeTotale);
 }
 
-const Bateau* ajouterBateau(ListeBateau* liste, const Bateau* bateau) {
-   if (liste->taille >= liste->capacite) {
-      size_t tempCapacite = (size_t) ((liste->capacite + 1) * 1.5);
+const Bateau* ajouterBateau(ListeBateau* listeBateau, const Bateau* bateau) {
+   if (listeBateau->taille >= listeBateau->capacite) {
+      size_t tempCapacite = (size_t) ((listeBateau->capacite + 1) * 1.5);
       BateauTaxe* temp = (BateauTaxe*) realloc(
-            liste->liste,
+            listeBateau->liste,
             tempCapacite * sizeof(BateauTaxe)
       );
       if (temp == NULL) return NULL;
-      liste->capacite = tempCapacite;
-      liste->liste = temp;
+      listeBateau->capacite = tempCapacite;
+      listeBateau->liste = temp;
    }
-   BateauTaxe nouveauBateau = {bateau, calculTaxe(bateau)};
-   liste->liste[liste->taille] = nouveauBateau;
-   ++liste->taille;
+
+   BateauTaxe nouveauBateau = {
+         .bateau = bateau,
+         .taxeTotale = calculTaxe(bateau)
+   };
+
+   listeBateau->liste[listeBateau->taille] = nouveauBateau;
+   ++listeBateau->taille;
    return bateau;
 }
 
@@ -134,16 +149,16 @@ void afficherTaxes(const Port* port, const TypeTaxe taxe) {
          voilier, peche, plaisance);
 }
 
-double calculSommeTaxes(const ListeBateau* liste) {
+double calculSommeTaxes(const ListeBateau* listeBateau) {
    double taxes = 0;
-   for (size_t i = 0; i < liste->taille; ++i) {
-      taxes += liste->liste[i].taxeTotale;
+   for (size_t i = 0; i < listeBateau->taille; ++i) {
+      taxes += listeBateau->liste[i].taxeTotale;
    }
    return taxes;
 }
 
-double calculMoyenneTaxes(const ListeBateau* liste) {
-   return calculSommeTaxes(liste) / liste->taille;
+double calculMoyenneTaxes(const ListeBateau* listeBateau) {
+   return calculSommeTaxes(listeBateau) / listeBateau->taille;
 }
 
 double calculMedianeTaxes(const ListeBateau* liste) {
