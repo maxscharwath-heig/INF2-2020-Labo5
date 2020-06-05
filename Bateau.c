@@ -53,8 +53,8 @@ void afficherBateau(const Bateau* bateau) {
    switch (bateau->typeBateau) {
       case T_PECHE :
          printf(
-               "Type : Bateau de peche \n"
-               "Nom  : %s \n"
+               "Type       : Bateau de peche \n"
+               "Nom        : %s \n"
                "Puissance  : %" PRIu16 "CV\n"
                "Capacite   : %" PRIu8 "t\n\n",
                bateau->nom,
@@ -64,11 +64,11 @@ void afficherBateau(const Bateau* bateau) {
 		break;
       case T_PLAISANCE :
          printf(
-               "Type : Bateau de plaisance \n"
-               "Nom  : %s \n"
-               "Nom du proprietaire : %s \n"
-               "Puissance  : %" PRIu16 "CV\n"
-               "Longueur   : %" PRIu8 "m\n\n",
+               "Type         : Bateau de plaisance \n"
+               "Nom          : %s \n"
+               "Proprietaire : %s \n"
+               "Puissance    : %" PRIu16 "CV\n"
+               "Longueur     : %" PRIu8 "m\n\n",
                bateau->nom,
                bateau->bateauMoteur.type.bateauPlaisance.nomProprietaire,
                bateau->bateauMoteur.puissance,
@@ -77,9 +77,9 @@ void afficherBateau(const Bateau* bateau) {
 		break;
       case T_VOILIER :
          printf(
-               "Type : Voilier\n"
-               "Nom  : %s \n"
-               "Surface de la voile  : %" PRIu16 "m2\n\n",
+               "Type     : Voilier\n"
+               "Nom      : %s \n"
+               "Voilure  : %" PRIu16 "m2\n\n",
                bateau->nom,
                bateau->voilier.voilure
          );

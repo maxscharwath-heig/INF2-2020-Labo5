@@ -95,9 +95,11 @@ double calculTaxe(const Bateau* bateau) {
 }
 
 void afficherPort(const Port* port) {
+   printf("Liste des bateaux \n===========================\n\n");
    for (size_t i = 0; i < port->nbBateau; ++i) {
       afficherBateau(&port->listeBateau[i]);
    }
+   printf("===========================\n\n");
 }
 
 void afficherTaxes(const Port* port, const TypeTaxe taxe) {
@@ -126,7 +128,9 @@ void afficherTaxes(const Port* port, const TypeTaxe taxe) {
    }
    printf(
          " des taxes des 3 types de bateaux: \n"
-         "Voilier: %.2f\tE Peche: %.2f E\tPlaisance: %.2f E \n\n",
+         "Voilier   : %8.2f euros\n"
+         "Peche     : %8.2f euros\n"
+         "Plaisance : %8.2f euros \n\n",
          voilier, peche, plaisance);
 }
 
