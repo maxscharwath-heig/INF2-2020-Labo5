@@ -34,21 +34,26 @@ typedef struct BateauTaxe {
 	double taxeTotale;
 } BateauTaxe;
 
+typedef struct ListeBateau {
+   BateauTaxe* liste;
+   size_t taille;
+   size_t capacite;
+} ListeBateau;
+
 typedef struct Port {
    size_t nbBateau;
-   size_t capacite;
-   BateauTaxe* listeBateau;
+   Bateau* listeBateau;
+   ListeBateau listeVoilier;
+   ListeBateau listePeche;
+   ListeBateau listePlaisance;
 } Port;
 
-Port nouveauPort(size_t capacite);
+Port nouveauPort(Bateau *liste, size_t taille);
 
-Bateau* ajouterBateau(Port* port, Bateau* bateau);
+Bateau* ajouterBateau(ListeBateau* liste, Bateau* bateau);
 
 void afficherPort(const Port* port);
 
-void afficherTaxes(const Port* port, const TypeTaxe taxe);
-
-void viderPort(Port* port);
-
+void afficherTaxes(const Port* port, TypeTaxe taxe);
 
 #endif //LABO5_PORT_H
